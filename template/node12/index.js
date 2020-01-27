@@ -16,7 +16,20 @@ app.disable('x-powered-by');
 
 class FunctionEvent {
     constructor(req) {
-        console.log(JSON.stringify(req));
+        const getCircularReplacer = () => {
+            const seen = new WeakSet();
+            return (key, value) => {
+              if (typeof value === "object" && value !== null) {
+                if (seen.has(value)) {
+                  return;
+                }
+                seen.add(value);
+              }
+              return value;
+            };
+          };
+
+        console.log(JSON.stringify(req, getCircularReplacer()));
         this.rawBody = req.rawBody;
         this.body = req.body;
         this.headers = req.headers;
