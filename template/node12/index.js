@@ -17,28 +17,16 @@ app.use(
   })
 );
 app.use(bodyParser.raw());
+// app.use(bodyParser.raw({
+//     verify: (req, res, buf) => {
+//       req.rawBody = buf;
+//     }
+//   }));
 app.use(bodyParser.text({ type: "text/*" }));
 app.disable("x-powered-by");
 
 class FunctionEvent {
   constructor(req) {
-    /* 
-    USED FOR DEBUGGING
-    */
-    // const getCircularReplacer = () => {
-    //   const seen = new WeakSet();
-    //   return (key, value) => {
-    //     if (typeof value === "object" && value !== null) {
-    //       if (seen.has(value)) {
-    //         return;
-    //       }
-    //       seen.add(value);
-    //     }
-    //     return value;
-    //   };
-    // };
-
-    // console.log(JSON.stringify(req, getCircularReplacer()));
     this.rawBody = req.rawBody;
     this.body = req.body;
     this.headers = req.headers;
