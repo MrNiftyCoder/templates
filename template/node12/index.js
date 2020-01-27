@@ -17,11 +17,6 @@ app.use(
   })
 );
 app.use(bodyParser.raw());
-// app.use(bodyParser.raw({
-//     verify: (req, res, buf) => {
-//       req.rawBody = buf;
-//     }
-//   }));
 app.use(bodyParser.text({ type: "text/*" }));
 app.disable("x-powered-by");
 
