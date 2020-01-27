@@ -9,7 +9,6 @@ const handler = require("./function/handler");
 const bodyParser = require("body-parser");
 
 // app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.raw());
 app.use(
   bodyParser.json({
     verify: (req, res, buf) => {
@@ -17,12 +16,12 @@ app.use(
     }
   })
 );
+app.use(bodyParser.raw());
 app.use(bodyParser.text({ type: "text/*" }));
 app.disable("x-powered-by");
 
 class FunctionEvent {
   constructor(req) {
-
     /* 
     USED FOR DEBUGGING
     */
