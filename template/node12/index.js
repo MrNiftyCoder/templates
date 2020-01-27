@@ -9,24 +9,13 @@ const handler = require("./function/handler");
 const bodyParser = require("body-parser");
 
 // app.use(bodyParser.urlencoded({ extended: false }));
-function addRawBody(req, res, next) {
-  req.setEncoding("utf8");
-
-  var data = "";
-
-  req.on("data", function(chunk) {
-    data += chunk;
-  });
-
-  req.on("end", function() {
-    req.rawBody = data;
-
-    next();
-  });
-}
-
-app.use(addRawBody);
-app.use(bodyParser.json());
+app.use(
+  bodyParser.json({
+    verify: (req, res, buf) => {
+      req.rawBody = buf;
+    }
+  })
+);
 app.use(bodyParser.raw());
 app.use(bodyParser.text({ type: "text/*" }));
 app.disable("x-powered-by");
