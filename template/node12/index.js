@@ -16,6 +16,7 @@ app.disable('x-powered-by');
 
 class FunctionEvent {
     constructor(req) {
+        this.rawBody = req.rawBody;
         this.body = req.body;
         this.headers = req.headers;
         this.method = req.method;
